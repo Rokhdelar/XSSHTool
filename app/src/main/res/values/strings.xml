@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">设备管理助手</string>
+    <string name="action_settings">设置</string>
+    <string name="title_activity_sw8900">中兴8900交换机</string>
+
+    <string name="hello_world">Hello world!</string>
+</resources>
