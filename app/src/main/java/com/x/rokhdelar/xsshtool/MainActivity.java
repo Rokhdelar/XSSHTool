@@ -1,13 +1,12 @@
 package com.x.rokhdelar.xsshtool;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -24,7 +23,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ListView listViewMain=(ListView)findViewById(R.id.mainListView);
-        final ArrayList<HashMap<String,Object>> arrayListMainItem=new ArrayList<>();
+        final ArrayList<HashMap<String,Object>> arrayListMainItem=new ArrayList<HashMap<String, Object>>();
         HashMap<String,Object> map=new HashMap<String,Object>();
 
         map.put("itemImage",R.mipmap.ic_sw8905);
@@ -32,16 +31,22 @@ public class MainActivity extends Activity {
         map.put("itemDescription", "交换机相关操作，端口、mac、vlan等...");
         arrayListMainItem.add(map);
 
-        map=new HashMap<>();
+        map=new HashMap<String, Object>();
         map.put("itemImage",R.mipmap.ic_hwolt);
         map.put("itemCaption", "华为OLT管理");
         map.put("itemDescription", "华为OLT相关操作，端口、mac、vlan等...");
         arrayListMainItem.add(map);
 
-        map=new HashMap<>();
+        map=new HashMap<String, Object>();
         map.put("itemImage",R.mipmap.ic_zteolt);
         map.put("itemCaption", "中兴OLT管理");
         map.put("itemDescription", "中兴OLT相关操作，端口、mac、vlan等...");
+        arrayListMainItem.add(map);
+
+        map=new HashMap<String, Object>();
+        map.put("itemImage",R.mipmap.ic_setting);
+        map.put("itemCaption","App设置");
+        map.put("itemDescription","应用设置...");
         arrayListMainItem.add(map);
 
         SimpleAdapter simpleAdapterMainItem=new SimpleAdapter(this,
@@ -55,6 +60,20 @@ public class MainActivity extends Activity {
         listViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        Intent intent=new Intent(getApplicationContext(),SW8900Activity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+
+
+                }
                 Toast.makeText(getApplicationContext(),"您选择了"+position,Toast.LENGTH_LONG).show();
             }
         });
