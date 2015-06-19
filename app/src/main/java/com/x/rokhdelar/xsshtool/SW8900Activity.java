@@ -2,10 +2,16 @@ package com.x.rokhdelar.xsshtool;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.x.rokhdelar.model.Device;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,8 +31,18 @@ import java.util.List;
 
 public class SW8900Activity extends Activity {
     private String deviceName;
+    private String ip;
+    private TextView textViewDeviceName,textViewDeviceVersion;
 
     private MainApplication application;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Device device=(Device)data.getSerializableExtra("device");
+        textViewDeviceName.setText(device.getDeviceName() + "--" + device.getDeviceIP());
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,61 +52,23 @@ public class SW8900Activity extends Activity {
         getActionBar().setHomeButtonEnabled(true);
         application=(MainApplication)getApplication();
 
-    }
-    private void initView(){
-
-    }
-
-    private class getDeviceInfoTask extends AsyncTask<String,Integer,String>{
-
-        @Override
-        protected String doInBackground(String... strings) {
-            List<BasicNameValuePair> httpParams=new LinkedList<BasicNameValuePair>();
-            httpParams.add(new BasicNameValuePair("action","getDeviceinfo"));
-            httpParams.add(new BasicNameValuePair("deviceID","0"));
-            String basicUrl=application.getServerUrl()+"APIDevice.php";
-
-            HttpGet httpGet=new HttpGet(basicUrl+"?"+ URLEncodedUtils.format(httpParams,"UTF-8"));
-            HttpClient httpClient=new DefaultHttpClient();
-            try{
-                HttpResponse httpResponse=httpClient.execute(httpGet);
-                if(httpResponse.getStatusLine().getStatusCode()==200){
-                    JSONObject jsonObject=new JSONObject(EntityUtils.toString(httpResponse.getEntity()));
-                    if(jsonObject.getInt("code")==200){
-                        deviceName=jsonObject.getJSONObject("data").getString("deviceName");
-
-                    }
-                }
-            }catch (Exception e){
-                e.printStackTrace();
+        textViewDeviceName=(TextView)findViewById(R.id.textViewDeviceName);
+        textViewDeviceVersion=(TextView)findViewById(R.id.textViewDeviceVersion);
+        ImageButton imageButton=(ImageButton)findViewById(R.id.ImageButtonSelectDevice);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),SelectDeviceActivity.class);
+                startActivityForResult(intent, 1);
             }
+        });
+        //弹出选择设备对话框。
+        Intent intent=new Intent(getApplicationContext(),SelectDeviceActivity.class);
+        startActivityForResult(intent, 1);
 
+        //获取设备运行时间。
 
-            return null;
-        }
+        //获取设备端口列表，采用spinner方式。
     }
 
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sw8900, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

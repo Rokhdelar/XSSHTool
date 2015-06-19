@@ -4,4 +4,6 @@
     <string name="title_activity_sw8900">中兴8900交换机</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_select_device">请选择设备</string>
+    <string name="prompt_select_substion">请选择设备所在支局</string>
 </resources>
