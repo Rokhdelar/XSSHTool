@@ -25,14 +25,16 @@
                 android:layout_width="fill_parent"
                 android:layout_weight="5"
                 android:layout_height="0dp"
-                android:text="DEVICE NAME"
+                android:text="设备名称："
+                android:gravity="center_vertical"
                 android:id="@+id/textViewDeviceName" />
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5"
-                android:text="DEVICE RUNNING TIME"
-                android:id="@+id/textViewDeviceVersion"/>
+                android:text="设备运行时间："
+                android:gravity="center_vertical"
+                android:id="@+id/textViewDeviceUpTime"/>
         </LinearLayout>
 
         <ImageButton
@@ -42,6 +44,29 @@
             android:layout_gravity="center"
             android:src="@mipmap/ic_device"
             android:id="@+id/ImageButtonSelectDevice" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="10">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.25"
+            android:src="@mipmap/ic_vlan"
+            android:background="#00000000"
+            android:id="@+id/imageButtonShowVLAN"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.25"
+            android:src="@mipmap/ic_mac"
+            android:background="#00000000"
+            android:id="@+id/imageButtonShowMacByVLAN"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
@@ -55,18 +80,20 @@
             android:layout_height="fill_parent"
             android:layout_weight="10"
             android:orientation="vertical"
-            android:weightSum="10">
+            android:weightSum="15">
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5"
-                android:text="INTERFACE NAME"
+                android:gravity="center_vertical"
+                android:text="端口名称："
                 android:id="@+id/textViewInterfaceName"/>
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
-                android:text="INTERFACE DESCRIPTION"
+                android:layout_weight="10"
+                android:text="端口描述："
+                android:gravity="center_vertical"
                 android:id="@+id/textViewInterfaceDescription"/>
         </LinearLayout>
 
@@ -83,6 +110,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
+        android:gravity="center"
         android:weightSum="10">
         <ImageButton
             android:layout_width="0dp"
@@ -103,8 +131,25 @@
             android:layout_height="fill_parent"
             android:layout_weight="1.25"
             android:background="#00000000"
+            android:src="@mipmap/ic_optic"
+            android:id="@+id/imageButtonInterfaceOptic"/>
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.25"
+            android:src="@mipmap/ic_smartgroup"
+            android:background="#00000000"
+            android:id="@+id/imageButtonShowSmartgroup" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.25"
+            android:background="#00000000"
             android:src="@mipmap/ic_openinterface"
             android:id="@+id/imageButtonOpenInterface"/>
+
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -122,8 +167,9 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/textViewOutput"
-
-            />
+            android:singleLine="false"
+            android:textSize="10dp"
+            android:scrollbars="vertical"/>
     </LinearLayout>
 
 </LinearLayout>

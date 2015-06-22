@@ -1,6 +1,8 @@
 package com.x.rokhdelar.xsshtool;
 import android.app.Application;
 
+import java.util.ArrayList;
+
 /**
  * Created by X on 15/6/14.
  */

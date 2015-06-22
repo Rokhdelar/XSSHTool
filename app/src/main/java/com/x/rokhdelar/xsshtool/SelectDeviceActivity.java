@@ -1,6 +1,7 @@
 package com.x.rokhdelar.xsshtool;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Entity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -41,25 +42,33 @@ public class SelectDeviceActivity extends Activity {
     private ArrayList<CommRoom> listCommRoom=new ArrayList<CommRoom>();
     private ArrayList<Device> listDevice=new ArrayList<Device>();
     private Spinner spinnerSubstation,spinnerCommRoom,spinnerDevice;
-    private Button buttonChose,buttonCancel;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_device);
+
         mainApplication=(MainApplication)getApplication();
         spinnerSubstation=(Spinner)findViewById(R.id.spinnerSubstation);
         spinnerCommRoom=(Spinner)findViewById(R.id.spnnerCommRoom);
         spinnerDevice=(Spinner)findViewById(R.id.spnnerDevice);
-        buttonChose=(Button)findViewById(R.id.buttonChose);
-        buttonCancel=(Button)findViewById(R.id.buttonCancel);
+        Button buttonChose = (Button) findViewById(R.id.buttonChose);
+        Button buttonCancel = (Button) findViewById(R.id.buttonCancel);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("正在读取数据，请等待...");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
 
+        progressDialog.show();
         GetSubStationTask getSubStationTask=new GetSubStationTask();
         getSubStationTask.execute();
         spinnerSubstation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 SubStation subStation = listSubStation.get(i);
+                progressDialog.show();
                 GetCommRoomTask getCommRoomTask = new GetCommRoomTask();
                 getCommRoomTask.execute(String.valueOf(subStation.getSubID()));
             }
@@ -73,6 +82,7 @@ public class SelectDeviceActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 CommRoom commRoom=listCommRoom.get(i);
+                progressDialog.show();
                 GetDeviceTask getDeviceTask=new GetDeviceTask();
                 getDeviceTask.execute(String.valueOf(commRoom.getCommRoomID()));
             }
@@ -104,6 +114,7 @@ public class SelectDeviceActivity extends Activity {
     }
 
     public class GetSubStationTask extends AsyncTask<String,Integer,String>{
+
         @Override
         protected void onPostExecute(String s) {
             ArrayAdapter<SubStation> arrayAdapter=new ArrayAdapter<SubStation>(getApplicationContext(),
@@ -111,6 +122,7 @@ public class SelectDeviceActivity extends Activity {
                     listSubStation);
             spinnerSubstation.setAdapter(arrayAdapter);
             spinnerSubstation.setPrompt("请选择设备所在支局");
+            progressDialog.dismiss();
 
             super.onPostExecute(s);
         }
@@ -157,6 +169,7 @@ public class SelectDeviceActivity extends Activity {
                     listCommRoom);
             spinnerCommRoom.setAdapter(arrayAdapter);
             spinnerCommRoom.setPrompt("请选择设备所在机房");
+            progressDialog.dismiss();
             super.onPostExecute(s);
         }
 
@@ -205,6 +218,7 @@ public class SelectDeviceActivity extends Activity {
                     listDevice);
             spinnerDevice.setAdapter(arrayAdapter);
             spinnerDevice.setPrompt("请选择设备");
+            progressDialog.dismiss();
 
             super.onPostExecute(s);
         }

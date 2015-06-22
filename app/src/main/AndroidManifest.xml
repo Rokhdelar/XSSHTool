@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,9 @@
         <activity
             android:name=".SW8900Activity"
             android:label="@string/title_activity_sw8900"
-            android:parentActivityName=".MainActivity" >
+            android:icon="@mipmap/ic_sw8905"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.x.rokhdelar.xsshtool.MainActivity" />
@@ -30,10 +33,12 @@
         <activity
             android:name=".SelectDeviceActivity"
             android:label="@string/title_activity_select_device"
-            android:theme="@android:style/Theme.Holo.Dialog.MinWidth">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.x.rokhdelar.xsshtool.MainActivity" />
+            android:theme="@android:style/Theme.Holo.Dialog.MinWidth" >
+        </activity>
+        <activity
+            android:name=".SelectInterfaceActivity"
+            android:theme="@android:style/Theme.Holo.Dialog.MinWidth"
+            android:label="@string/title_activity_select_interface" >
         </activity>
     </application>
 
